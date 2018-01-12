@@ -1,0 +1,39 @@
+<ion-view name="register">
+
+	<ion-header-bar align-title="left" class="bar-dark">
+		
+		<h1 class="title">Poll App</h1>
+		<a class="button" href="#/login">Login</a>
+
+	</ion-header-bar>
+
+	<ion-content class="splash padding">
+
+		<div class="list card padding">
+			
+			<div class="item item-body">
+				<img src="http://placehold.it/450x200" class="padding">
+				<label class="item item-input">
+					<span class="input-label">First Name</span>
+					<input type="text" ng-model="user.firstname">
+				</label>
+				<label class="item item-input">
+					<span class="input-label">Last Name</span>
+					<input type="text" ng-model="user.lastname">
+				</label>
+				<label class="item item-input">
+					<span class="input-label">Username</span>
+					<input type="text" ng-model="user.email">
+				</label>
+				<label class="item item-input">
+					<span class="input-label">Password</span>
+					<input type="password" ng-model="user.password">
+				</label>
+				<button class="button button-full button-positive" ng-click="register()">
+					Register
+				</button>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>

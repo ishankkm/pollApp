@@ -1,1 +1,9 @@
 /* Empty. Add your own CSS if you like */
+
+.splash {
+	background: url(../img/bg.jpg);
+	-webkit-bac/*kground-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;*/
+}
