@@ -68,7 +68,8 @@ pollApp
       url:'/newpoll',
       views: {
         'menuContent': {
-          templateUrl: 'views/home/newpoll.html'
+          templateUrl: 'views/home/newpoll.html',
+          controller: 'HomeController'
         }
       }
     })
