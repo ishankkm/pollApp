@@ -12,40 +12,42 @@ pollApp.controller('HomeController', [
 
 			if(authUser) {
 
-				var pollingRef = ref.child('users').child(authUser.uid).child('polls');
-				var pollingInfo = $firebaseArray(pollingRef);
+				var userPollRef = ref.child('users').child(authUser.uid).child('polls');
+				var userPollingInfo = $firebaseArray(userPollRef);
 
-				$scope.polls = pollingInfo;
+				var publicPolls = ref.child('polls');
+				var publicPollsInfo = $firebaseArray(publicPolls);
+
+				$scope.polls = userPollingInfo;
 				$scope.pollQues = {}
+				$scope.pollQues.pollid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6).toUpperCase();
 				$scope.isPollActive = false;
 
 				$scope.createPoll = function() {
+						
+						var publicPollQues = Object.assign({}, $scope.pollQues);
+						$scope.pollQues.date = firebase.database.ServerValue.TIMESTAMP;
+						$scope.pollQues.owner = true;
 
-					pollingInfo.$add({
+						userPollingInfo.$add($scope.pollQues).then(
+							function() {
+								$scope.isPollActive = true;
+							}
+						);
 
-						question: $scope.pollQues.question,
-						option1: $scope.pollQues.op1,
-						option2: $scope.pollQues.op2,
-						option3: $scope.pollQues.op3,
-						option4: $scope.pollQues.op4,
-						date: firebase.database.ServerValue.TIMESTAMP
-
-					}).then(function() {
-						console.log($scope.pollQues);
-						$scope.isPollActive = true;
-					});
-				}
-
-      } //authUser
-    }); //onAuthStateChanged
+						publicPollsInfo.$add(publicPollQues);
+					}
+				} //authUser
+	    	}
+	    ); //onAuthStateChanged
 
 		$scope.addNewPoll = function() {
+			// $scope.pollQues = {}    			 
 			$state.go('tabs.newpoll');   
-			$scope.pollQues = {}       
 		}
 
 		$scope.goToPoll = function() {
-
+			$state.go('tabs.pollroom');  
 		}
 	}
 ]);

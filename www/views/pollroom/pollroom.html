@@ -1,0 +1,42 @@
+<ion-view title="Poll Room">
+	<ion-content class=" splash padding">
+
+		<div class="list list-inset">
+
+			<div class="item item-input padding">
+				<label class="item-input-wrapper">
+					<input type="text" placeholder="Enter Poll id" ng-model="pollKey">
+				</label>
+				<button class="button button-small button-positive" ng-click="fetchPoll(pollKey)">
+					Submit
+				</button>
+			</div>
+
+		</div>
+
+		<div class="list card padding" ng-show="isPollRoomActive">
+
+			<div class="list">
+
+				<label class="item item-input">					
+					<label><h2>{{pollQues.pollid}}</h2></label>
+				</label>
+				<label class="item item-input">					
+					<h2>{{pollQues.question}}</h2>
+				</label>
+
+				<div class="item">
+					<ion-radio ng-model="pollAns" ng-value="'A'">A. {{pollQues.op1}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'B'">B. {{pollQues.op2}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'C'">C. {{pollQues.op3}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'D'">D. {{pollQues.op4}}</ion-radio>
+				</div>
+				<div class="item">
+					<a class="button button-block button-calm" ng-click="">Vote</a>
+				</div>
+
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>	

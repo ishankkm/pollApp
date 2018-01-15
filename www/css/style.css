@@ -1,9 +1,80 @@
 /* Empty. Add your own CSS if you like */
 
+iframe {
+    border: none;
+    margin: 30px auto;
+}
+
 .splash {
 	background: url(../img/bg.jpg);
-	-webkit-bac/*kground-size: cover;
+	/*-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;*/
 }
+
+.menu .bar.bar-header.expanded {
+    background-image: url('../img/material-graphite.jpg');
+    background-size: 120%;
+    background-position: 0%;
+    transition: all .5s ease-in-out;
+}
+
+/* Menu */
+.menu-bottom {
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  position: absolute; }
+
+.menu-top {
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  position: absolute; }
+
+.menu .avatar {
+  top: 16px;
+  left: 16px;
+  height: 65px;
+  width: 65px; }
+
+.menu .bar.bar-header.expanded {
+  box-shadow: none;
+  min-height: 150px;
+  color: #fff; }
+
+.menu-open .bar.bar-header.expanded {
+  background-position: 0;
+  background-size: 100%; }
+
+.has-expanded-header {
+  top: 150px !important; }
+
+.motion {
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out; }
+
+.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -webkit-transition: all 0.1s ease-out !important;
+  transition: all 0.1s ease-out !important; }
+
+.menu-open .avatar {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: translateZ(0) rotate(0) scale(1) !important;
+  transform: translateZ(0) rotate(0) scale(1) !important;
+  -webkit-transition: all 0.3s ease-out !important;
+  transition: all 0.3s ease-out !important; }
+
+.spin {
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -webkit-transform: translateZ(0) rotate(0) scale(0) !important;
+  transform: translateZ(0) rotate(0) scale(0) !important;
+  -webkit-transition: all 0.3s ease-out !important;
+  transition: all 0.3s ease-out !important; }

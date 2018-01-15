@@ -1,9 +1,12 @@
 <ion-view title="Create New Poll">
 	<ion-content class=" splash padding">
-		<div class="list card padding" >
+		<div class="list card padding" ng-show="!isPollActive">
 
-			<div class="item" ng-show="!isPollActive">
+			<div class="item">
 
+				<label class="item" ng-model="pollQues.pollid">
+					<h2>Poll id: {{pollQues.pollid}}</h2>
+				</label>
 				<label class="item item-input">
 					<textarea placeholder="Question" ng-model="pollQues.question" name="question"></textarea>
 				</label>
@@ -28,6 +31,9 @@
 
 			<div class="item">
 
+				<label class="item item-input">					
+					<label><h2>{{pollQues.pollid}}</h2></label>
+				</label>
 				<label class="item item-input">					
 					<label>{{pollQues.question}}</label>
 				</label>

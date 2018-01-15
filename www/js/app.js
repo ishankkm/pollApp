@@ -74,6 +74,26 @@ pollApp
       }
     })
 
+    .state('tabs.pollroom', {
+      url:'/pollroom',
+      views: {
+        'menuContent': {
+          templateUrl: 'views/pollroom/pollroom.html',
+          controller: 'PollroomController'
+        }
+      }
+    })
+
+    .state('tabs.polldetail', {
+      url:'/polldetail/:pId',
+      views: {
+        'menuContent': {
+          templateUrl: 'views/polldetail/polldetail.html',
+          controller: 'PolldetailController'
+        }
+      }
+    })
+
     .state('login', {
       url:'/login',
       templateUrl: 'views/login/login.html',
