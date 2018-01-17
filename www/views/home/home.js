@@ -1,6 +1,6 @@
 pollApp.controller('HomeController', [
-	'$scope', 
-	'$http', 
+	'$scope',
+	'$http',
 	'$firebaseAuth', '$firebaseArray',
 	'$state',
 	function($scope, $http, $firebaseAuth, $firebaseArray, $state) {
@@ -23,31 +23,17 @@ pollApp.controller('HomeController', [
 				$scope.pollQues.pollid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6).toUpperCase();
 				$scope.isPollActive = false;
 
-				$scope.createPoll = function() {
-						
-						var publicPollQues = Object.assign({}, $scope.pollQues);
-						$scope.pollQues.date = firebase.database.ServerValue.TIMESTAMP;
-						$scope.pollQues.owner = true;
-
-						userPollingInfo.$add($scope.pollQues).then(
-							function() {
-								$scope.isPollActive = true;
-							}
-						);
-
-						publicPollsInfo.$add(publicPollQues);
-					}
 				} //authUser
-	    	}
-	    ); //onAuthStateChanged
+	    }
+	  ); //onAuthStateChanged
 
 		$scope.addNewPoll = function() {
-			// $scope.pollQues = {}    			 
-			$state.go('tabs.newpoll');   
+			// $scope.pollQues = {}
+			$state.go('tabs.newpoll');
 		}
 
 		$scope.goToPoll = function() {
-			$state.go('tabs.pollroom');  
+			$state.go('tabs.pollroom');
 		}
 	}
 ]);

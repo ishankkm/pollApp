@@ -5,12 +5,13 @@ iframe {
     margin: 30px auto;
 }
 
+
+body {
+  cursor: url('https://ionicframework.com/img/finger.png'), auto;
+}
+
 .splash {
 	background: url(../img/bg.jpg);
-	/*-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;*/
 }
 
 .menu .bar.bar-header.expanded {
@@ -51,30 +52,13 @@ iframe {
 .has-expanded-header {
   top: 150px !important; }
 
-.motion {
-  -webkit-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out; }
-
-.fade {
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -webkit-backface-visibility: hidden !important;
-  backface-visibility: hidden !important;
-  -webkit-transition: all 0.1s ease-out !important;
-  transition: all 0.1s ease-out !important; }
-
-.menu-open .avatar {
-  opacity: 1;
-  filter: alpha(opacity=100);
-  -webkit-transform: translateZ(0) rotate(0) scale(1) !important;
-  transform: translateZ(0) rotate(0) scale(1) !important;
-  -webkit-transition: all 0.3s ease-out !important;
-  transition: all 0.3s ease-out !important; }
-
-.spin {
-  -webkit-backface-visibility: hidden !important;
-  backface-visibility: hidden !important;
-  -webkit-transform: translateZ(0) rotate(0) scale(0) !important;
-  transform: translateZ(0) rotate(0) scale(0) !important;
-  -webkit-transition: all 0.3s ease-out !important;
-  transition: all 0.3s ease-out !important; }
+/*Modal*/
+.modal{
+  /* top: 20% !important;
+  right: 20% !important;
+  bottom: 20% !important;
+  left: 20% !important;
+  overflow: visible !important;
+  min-height: 240px !important;
+  width: 60% !important; */
+}

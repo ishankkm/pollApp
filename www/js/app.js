@@ -7,8 +7,8 @@ var pollApp = angular.module('starter', ['ionic', 'firebase'])
 
 pollApp
 .run(
-  [ '$ionicPlatform', 
-    '$state', 
+  [ '$ionicPlatform',
+    '$state',
     '$rootScope',
     function($ionicPlatform, $state, $rootScope) {
 
@@ -41,7 +41,7 @@ pollApp
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-    
+
     .state ('tabs', {
       abstract: true,
       url: '/tab',
@@ -68,8 +68,8 @@ pollApp
       url:'/newpoll',
       views: {
         'menuContent': {
-          templateUrl: 'views/home/newpoll.html',
-          controller: 'HomeController'
+          templateUrl: 'views/newpoll/newpoll.html',
+          controller: 'NewpollController'
         }
       }
     })
@@ -99,7 +99,7 @@ pollApp
       templateUrl: 'views/login/login.html',
       controller: 'LoginController'
     })
-    
+
     .state('register', {
       url:'/register',
       templateUrl: 'views/register/register.html',
@@ -110,13 +110,13 @@ pollApp
 })
 
 .controller('tabController', [
-  '$scope', 
-  '$http', 
+  '$scope',
+  '$http',
   '$state',
   'Authentication',
   function($scope, $http, $state, Authentication) {
-    
-    $scope.logout = function() { 
+
+    $scope.logout = function() {
       Authentication.logout().then(function(user) {
         $state.go('login');
       });

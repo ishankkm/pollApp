@@ -14,7 +14,7 @@
 
 		</div>
 
-		<div class="list card padding" ng-show="isPollRoomActive">
+		<div class="list card padding" ng-show="isPollRoomActive && !polled">
 
 			<div class="list">
 
@@ -26,13 +26,13 @@
 				</label>
 
 				<div class="item">
-					<ion-radio ng-model="pollAns" ng-value="'A'">A. {{pollQues.op1}}</ion-radio>
-					<ion-radio ng-model="pollAns" ng-value="'B'">B. {{pollQues.op2}}</ion-radio>
-					<ion-radio ng-model="pollAns" ng-value="'C'">C. {{pollQues.op3}}</ion-radio>
-					<ion-radio ng-model="pollAns" ng-value="'D'">D. {{pollQues.op4}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'A'">A. {{pollQues.options.A}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'B'">B. {{pollQues.options.B}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'C'">C. {{pollQues.options.C}}</ion-radio>
+					<ion-radio ng-model="pollAns" ng-value="'D'">D. {{pollQues.options.D}}</ion-radio>
 				</div>
 				<div class="item">
-					<a class="button button-block button-calm" ng-click="">Vote</a>
+					<a class="button button-block button-calm" ng-click="castVote(pollAns)" ng-disabled="!pollAns">Vote</a>
 				</div>
 
 			</div>

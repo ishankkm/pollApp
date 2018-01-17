@@ -1,0 +1,72 @@
+<ion-view title="Create New Poll">
+
+	<div class="bar bar-subheader item-input-inset bar-dark">
+		<div class="item-input-wrapper">
+			<input type="search" placeholder="Enter a title" ng-model="poll.title">
+		</div>
+		<button class="button button-icon ion-plus" ng-click="itemmodal()"></button>
+	</div>
+
+	<ion-content class=" splash padding has-subheader">
+
+		<div class="list card padding" ng-show="isPollActive">
+
+			<div class="item">
+
+				<label class="item item-input">
+					<label><h2>{{pollQues.pollid}}</h2></label>
+				</label>
+				<label class="item item-input">
+					<label>{{pollQues.question}}</label>
+				</label>
+				<label class="item item-input">
+					<label>{{pollQues.options.A}}</label>
+				</label>
+				<label class="item item-input">
+					<label>{{pollQues.options.B}}</label>
+				</label>
+				<label class="item item-input">
+					<label>{{pollQues.options.C}}</label>
+				</label>
+				<label class="item item-input">
+					<label>{{pollQues.options.D}}</label>
+				</label>
+
+			</div>
+		</div>
+
+		<script id="itemmodal.html" type="text/ng-template">
+			<ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">New Question</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+						<label class="item" ng-model="pollQues.pollid">
+							<h2>Poll id: {{pollQues.pollid}}</h2>
+						</label>
+						<label class="item item-input">
+							<textarea placeholder="Question" ng-model="pollQues.question" name="question"></textarea>
+						</label>
+						<label class="item item-input">
+							<input type="text" placeholder="Option 1" ng-model="pollQues.options.A">
+						</label>
+						<label class="item item-input">
+							<input type="text" placeholder="Option 2" ng-model="pollQues.options.B">
+						</label>
+						<label class="item item-input">
+							<input type="text" placeholder="Option 3" ng-model="pollQues.options.C">
+						</label>
+						<label class="item item-input">
+							<input type="text" placeholder="Option 4" ng-model="pollQues.options.D">
+						</label>
+						<button class="button button-full button-positive" ng-click="createPoll('singlechoice')">
+							Create
+						</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+		</script>
+	</ion-content>
+</ion-view>
