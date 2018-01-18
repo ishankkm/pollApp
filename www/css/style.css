@@ -62,3 +62,11 @@ body {
   min-height: 240px !important;
   width: 60% !important; */
 }
+.footer-no-padding {
+  padding: 0px;
+}
+.footerbutton {
+  margin: 0px !important;
+  border: 0px;
+  height: 100%;
+}

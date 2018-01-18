@@ -2,38 +2,25 @@
 
 	<div class="bar bar-subheader item-input-inset bar-dark">
 		<div class="item-input-wrapper">
-			<input type="search" placeholder="Enter a title" ng-model="poll.title">
+			<input type="text" placeholder="Enter a title" ng-model="title">
 		</div>
 		<button class="button button-icon ion-plus" ng-click="itemmodal()"></button>
 	</div>
 
 	<ion-content class=" splash padding has-subheader">
+		<ion-list>
+			<ion-item class="item" ng-repeat="poll in publicPollList.questions | filter: query" href="#/tab/polldetail/{{poll.pollid}}">
 
-		<div class="list card padding" ng-show="isPollActive">
+				<h2>{{poll.question}}</h2>
 
-			<div class="item">
+				<h3>{{poll.options.A}}</h3>
+				<h3>{{poll.options.B}}</h3>
+				<h3>{{poll.options.C}}</h3>
+				<h3>{{poll.options.D}}</h3>
 
-				<label class="item item-input">
-					<label><h2>{{pollQues.pollid}}</h2></label>
-				</label>
-				<label class="item item-input">
-					<label>{{pollQues.question}}</label>
-				</label>
-				<label class="item item-input">
-					<label>{{pollQues.options.A}}</label>
-				</label>
-				<label class="item item-input">
-					<label>{{pollQues.options.B}}</label>
-				</label>
-				<label class="item item-input">
-					<label>{{pollQues.options.C}}</label>
-				</label>
-				<label class="item item-input">
-					<label>{{pollQues.options.D}}</label>
-				</label>
-
-			</div>
-		</div>
+				<h4>{{pollid}}</h4>
+			</ion-item>
+		</ion-list>
 
 		<script id="itemmodal.html" type="text/ng-template">
 			<ion-modal-view>
@@ -43,8 +30,8 @@
         </ion-header-bar>
         <ion-content class="padding">
           <div class="list">
-						<label class="item" ng-model="pollQues.pollid">
-							<h2>Poll id: {{pollQues.pollid}}</h2>
+						<label class="item" ng-model="pollid">
+							<h2>Poll id: {{pollid}}</h2>
 						</label>
 						<label class="item item-input">
 							<textarea placeholder="Question" ng-model="pollQues.question" name="question"></textarea>
@@ -69,4 +56,7 @@
       </ion-modal-view>
 		</script>
 	</ion-content>
+	<ion-footer-bar class="bar-calm footer-no-padding">
+	    <button class="button button-full button-positive footerbutton" ng-click="publishpolls()">Publish</button>
+	</ion-footer-bar>
 </ion-view>

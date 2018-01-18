@@ -1,31 +1,31 @@
 pollApp.controller('PolldetailController', [
-	'$scope', 
-	'$http', 
-	'$firebaseAuth', '$firebaseArray',
+	'$scope',
+	'$http',
+	'$firebaseAuth', '$firebaseObject',
 	'$state',
-	function($scope, $http, $firebaseAuth, $firebaseArray, $state) {
+	function($scope, $http, $firebaseAuth, $firebaseObject, $state) {
 
 		var ref = firebase.database().ref();
 		var auth = $firebaseAuth();
 
-		var publicPolls = ref.child('polls');
-		var publicPollsInfo = $firebaseArray(publicPolls);
+		var publicPolls = ref.child('polls').child($state.params.pId);
 
 		auth.$onAuthStateChanged(function(authUser) {
 
 			if(authUser) {
 
-
-				publicPolls.orderByChild("pollid").equalTo($state.params.pId).once("value", 
+				publicPolls.once("value",
 
 					function(snapshot) {
 						if (snapshot.val() != null) {
+
 							var pollKeys = Object.keys(snapshot.val());
-							$scope.pollQues = snapshot.val()[pollKeys[0]];
+							$scope.poll = snapshot.val()[pollKeys[0]];
+
 						} else {
 							console.log(snapshot.val() == null)
-						}						  
-					}, 
+						}
+					},
 
 					function(err){
 						console.log(err);

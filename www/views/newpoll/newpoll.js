@@ -13,38 +13,55 @@ pollApp.controller('NewpollController', [
 
       if(authUser) {
 
+				$scope.pollQues = {}
+        $scope.userPollList = { qCount: 0 }
+        $scope.publicPollList = { questions: [] }
+        $scope.pollid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6).toUpperCase();
+
 				var userPollRef = ref.child('users').child(authUser.uid).child('polls');
 				var userPollingInfo = $firebaseArray(userPollRef);
 
-				var publicPolls = ref.child('polls');
+				var publicPolls = ref.child('polls').child($scope.pollid);
 				var publicPollsInfo = $firebaseArray(publicPolls);
 
-				$scope.polls = userPollingInfo;
-				$scope.pollQues = {}
-				$scope.pollQues.pollid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6).toUpperCase();
+				var pollInvites = ref.child('pollInvites');
+
 				$scope.isPollActive = false;
 
 				$scope.createPoll = function(type) {
 
 						$scope.pollQues.type = type;
-						var publicPollQues = Object.assign({}, $scope.pollQues);
-						$scope.pollQues.date = firebase.database.ServerValue.TIMESTAMP;
+            $scope.publicPollList.questions.push(new Object($scope.pollQues));
 
-						$scope.pollQues.owner = true;
-
-						userPollingInfo.$add($scope.pollQues).then(
-							function() {
-								$scope.isPollActive = true;
-							}
-						);
-
-						publicPollsInfo.$add(publicPollQues).then(function(poll){
-							console.log(poll.key);
-							publicPolls.child(poll.key).update({uid: poll.key});
-						});
+            $scope.userPollList.qCount += 1;
+						$scope.userPollList.date = firebase.database.ServerValue.TIMESTAMP;
 
             $scope.modal.hide();
+            $scope.pollQues = {}
+
 				}
+
+        $scope.publishpolls = function() {
+
+          $scope.userPollList.title = $scope.title;
+					$scope.userPollList.pollid = $scope.pollid;
+					console.log($scope.userPollList)
+          userPollingInfo.$add($scope.userPollList).then(
+            function() {
+              $scope.isPollActive = true;
+            }
+          );
+
+          $scope.publicPollList.title = $scope.title;
+					$scope.publicPollList.owner = authUser.uid;
+          $scope.publicPollList.descr = "Lorem Ipsum Dolor Sit!"
+          publicPollsInfo.$add($scope.publicPollList).then(
+            function(poll){
+              // publicPolls.update({uid: poll.key});
+              console.log("Published");
+            }
+          );
+        }
 
         $ionicModal.fromTemplateUrl('itemmodal.html', {
           scope: $scope

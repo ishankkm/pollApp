@@ -6,7 +6,7 @@
 			<input type="search" ng-model="query" placeholder="Search">
 		</div>
 		<div class="button-bar">
-			<button class="button button-icon ion-android-hand" ng-click="goToPoll()"></button>
+			<button class="button button-icon ion-android-hand" ng-click="addPoll()"></button>
 			<button class="button button-icon ion-plus" ng-click="addNewPoll()"></button>
 		</div>
 	</div>
@@ -14,16 +14,31 @@
 		<ion-list>
 			<ion-item class="item" ng-repeat="poll in polls | filter: query" href="#/tab/polldetail/{{poll.pollid}}">
 
-				<h2>{{poll.question}}</h2>
-				
-				<h3>{{poll.options.A}}</h3>
-				<h3>{{poll.options.B}}</h3>
-				<h3>{{poll.options.C}}</h3>
-				<h3>{{poll.options.D}}</h3>
-				
+				<h2 class="title">{{poll.title}}</h2>
+				<h2>{{poll.date}}</h2>
+				<h2>{{poll.qCount}}</h2>
+
 				<h4>{{poll.pollid}}</h4>
 			</ion-item>
 		</ion-list>
 
+		<script id="addpoll.html" type="text/ng-template">
+			<ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Add Poll</h1>
+          <button class="button button-clear button-primary" ng-click="addpollmodal.remove()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+						<label class="item item-input">
+							<input type="text" placeholder="Enter Poll id" ng-model="newPollid">
+						</label>
+						<button class="button button-full button-positive" ng-click="fetchPoll(newPollid)">
+							Submit
+						</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+		</script>
 	</ion-content>
 </ion-view>
