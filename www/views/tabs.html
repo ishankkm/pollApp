@@ -1,15 +1,7 @@
-<!-- <ion-tabs class="tabs-icon-top tabs-dark">
-
-  <ion-tab title="Home" icon="ion-home" href="#/tab/home">
-    <ion-nav-view name="home-tab"></ion-nav-view>
-  </ion-tab>
-
-</ion-tabs> -->
-
 <ion-side-menus enable-menu-with-back-views="false">
-	<ion-side-menu-content>
-		<ion-nav-bar class="bar-dark nav-title-slide-ios7">
-			
+	<ion-side-menu-content drag-content="false">
+		<ion-nav-bar class="bar-assertive nav-title-slide-ios7">
+
 			<ion-nav-back-button></ion-nav-back-button>
 
 			<ion-nav-buttons side="left">
@@ -25,7 +17,7 @@
 		<ion-header-bar class="expanded">
             <img src="img/logo.png" class="avatar">
             <div class="menu-bottom">
-                Ionic Polling App
+                The Survey App
             </div>
         </ion-header-bar>
 		<ion-content class="stable-bg has-expanded-header">
@@ -34,13 +26,13 @@
 					Home
 				</ion-item>
 				<ion-item menu-close href="#/tab/newpoll">
-					New Poll
+					New Survey
 				</ion-item>
-				<ion-item menu-close href="#/tab/pollroom">
-					Poll Room
+				<ion-item menu-close href="">
+					About
 				</ion-item>
-				<ion-item menu-close href="#/tab/polldetail/ESDTGK">
-					Poll Detail
+				<ion-item menu-close href="">
+					Contact
 				</ion-item>
 				<ion-item menu-close ng-click="logout()">
 					Logout

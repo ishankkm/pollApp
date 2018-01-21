@@ -1,60 +1,70 @@
 pollApp.controller('PollroomController', [
-	'$scope', 
-	'$http', 
+	'$scope',
+	'$http',
 	'$firebaseAuth', '$firebaseArray',
 	'$state',
-	function($scope, $http, $firebaseAuth, $firebaseArray, $state) {
+	'$ionicPopup',
+	function($scope, $http, $firebaseAuth, $firebaseArray, $state, $ionicPopup) {
 
 		var ref = firebase.database().ref();
 		var auth = $firebaseAuth();
-
 
 		auth.$onAuthStateChanged(function(authUser) {
 
 			if(authUser) {
 
-				var publicPolls = ref.child('polls');
+				var publicPoll = ref.child('polls').child($state.params.pId);
+				var userpoll = ref.child('users').child(authUser.uid).child('polls').child($state.params.pId);
+				var pollKeys;
 
-				var pollKeys = "";
+				if (userpoll.completed == true){
+					console.log("Error");
+				}
 
-				$scope.fetchPoll = function(pollKey) {
+				publicPoll.once("value",
 
-					publicPolls.orderByChild("pollid").equalTo(pollKey).once("value", 
+					function(snapshot) {
+						if (snapshot.val() != null) {
 
-						function(snapshot) {
-							if (snapshot.val() != null) {
-								
-								pollKeys = Object.keys(snapshot.val());
-								$scope.pollQues = snapshot.val()[pollKeys[0]];
-							} else {
-								console.log(snapshot.val() == null)
-							}						  
-						}, 
+							pollKeys = Object.keys(snapshot.val());
+							$scope.poll = snapshot.val()[pollKeys[0]];
 
-						function(err){
-							console.log(err);
+						} else {
+							console.log(snapshot.val() == null)
 						}
-					).then(function() {
-						$scope.isPollRoomActive = true;
-						$state.reload();
+					},
+
+					function(err){
+						console.log(err);
+					}
+				)
+
+				$scope.castVote = function() {
+					var response = [];
+					$scope.poll.questions.forEach(function(ques) {
+						response.push({
+							qid: ques.qid,
+							ans: ques.selected
+						})
+					});
+					publicPoll.child(pollKeys[0]).child('responses').push(response).then(function() {
+						$scope.pollcomplete = true;
+						userpoll.child('completed').set(true);
+						$scope.showAlert();
 					});
 				}
+				$scope.showAlert = function() {
+			   var alertPopup = $ionicPopup.alert({
+			     title: 'Survey Complete!',
+			     template: 'Your Response has been recorded!'
+			   });
 
-				$scope.castVote = function(pollAns) {
-					// .$getRecord(pollKeys[0])
-					res = {};
-					res[authUser.uid] = pollAns;
+			   alertPopup.then(function(res) {
+			     $state.go('tabs.polldetail', {pId: $state.params.pId});
+			   });
+			 };
 
-					publicPolls.child(pollKeys[0]).child('responses').update(new Object(res)).then(
-						function() {
-							$scope.polled = true;
-							$state.reload();
-							console.log(res)
-						}
-					);
-				}
-
-      		} //authUser
-    	}); //onAuthStateChanged
+    	} //authUser
+  	}); //onAuthStateChanged
 	}
 ]);

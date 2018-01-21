@@ -1,24 +1,40 @@
 <ion-view title="Create New Poll">
 
-	<div class="bar bar-subheader item-input-inset bar-dark">
-		<div class="item-input-wrapper">
-			<input type="text" placeholder="Enter a title" ng-model="title">
+	<ion-content class="">
+
+		<div class="list card">
+		  <label class="item item-input item-stacked-label">
+				<span class="input-label">Title</span>
+		    <input name="title" type="text" placeholder="Enter a title" ng-model="header.title">
+		  </label>
+		  <label class="item item-input item-stacked-label">
+				<span class="input-label">Description</span>
+		    <textarea rows="4" cols="50" placeholder="Enter a short description" class="textbox-size-large"
+						ng-model="header.descr"></textarea>
+		  </label>
+
 		</div>
-		<button class="button button-icon ion-plus" ng-click="itemmodal()"></button>
-	</div>
+		<button class="button button-balanced button-fab button-float-right" ng-click="itemmodal()">
+				<i class="icon ion-plus"></i>
+		</button>
 
-	<ion-content class=" splash padding has-subheader">
 		<ion-list>
-			<ion-item class="item" ng-repeat="poll in publicPollList.questions | filter: query" href="#/tab/polldetail/{{poll.pollid}}">
+			<ion-item class="card margin-top-small" ng-repeat="(index, poll) in publicPollList.questions"
+				ng-click="showmodal(index, poll)">
 
-				<h2>{{poll.question}}</h2>
+				  <div class="item item-text-wrap">
+				    <h2>{{poll.question}}</h2>
+				  </div>
+				  <div class="item item-body">
+						<h3>{{poll.options.A}}</h3>
+						<h3>{{poll.options.B}}</h3>
+						<h3>{{poll.options.C}}</h3>
+						<h3>{{poll.options.D}}</h3>
+				  </div>
+					<ion-option-button class="button-dark" ng-click="deleteItem(index)">
+	          <i class="icon ion-trash-b"></i>
+	        </ion-option-button>
 
-				<h3>{{poll.options.A}}</h3>
-				<h3>{{poll.options.B}}</h3>
-				<h3>{{poll.options.C}}</h3>
-				<h3>{{poll.options.D}}</h3>
-
-				<h4>{{pollid}}</h4>
 			</ion-item>
 		</ion-list>
 
@@ -31,10 +47,10 @@
         <ion-content class="padding">
           <div class="list">
 						<label class="item" ng-model="pollid">
-							<h2>Poll id: {{pollid}}</h2>
+							<h2>{{header.title}}</h2>
 						</label>
 						<label class="item item-input">
-							<textarea placeholder="Question" ng-model="pollQues.question" name="question"></textarea>
+							<textarea class="textbox-size-large" placeholder="Question" ng-model="pollQues.question" name="question"></textarea>
 						</label>
 						<label class="item item-input">
 							<input type="text" placeholder="Option 1" ng-model="pollQues.options.A">
@@ -57,6 +73,7 @@
 		</script>
 	</ion-content>
 	<ion-footer-bar class="bar-calm footer-no-padding">
-	    <button class="button button-full button-positive footerbutton" ng-click="publishpolls()">Publish</button>
+	    <button class="button button-full button-positive footerbutton" ng-click="publishpolls()"
+					ng-disabled="!header.title || !header.descr || !publicPollList.questions[0].question || isPollActive" >Publish</button>
 	</ion-footer-bar>
 </ion-view>

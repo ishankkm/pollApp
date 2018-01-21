@@ -48,7 +48,8 @@ pollApp.factory('Authentication',
             regUser: regUser.uid,
             firstname: user.firstname,
             lastname: user.lastname,
-            email: user.email
+            email: user.email,
+            displayName: user.displayName
           }); //userinfo
           myObject.login(user);
       }).then(function(user) {

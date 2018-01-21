@@ -1,14 +1,26 @@
 <ion-view title="Poll Detail">
 	<ion-content class=" splash padding">
 
-		<ion-list>
-			<ion-item class="item" ng-repeat="pollq in poll.questions">
+		<div class="list card">
+		  <div class="item">
+		  	<h2 class="title">{{poll.title}}</h2>
+				<a class="subdued"><h5>Created by {{poll.ownername}} on {{poll.date | date:MMMM}}</h5></a>
+		  </div>
+		  <div class="item item-text-wrap">
+		    <p>{{poll.descr}}</p>
+		  </div>
+		</div>
 
-				<h2 class="title">{{pollq.question}}</h2>
-				<h2>{{pollq.options.A}}</h2>
-				<h2>{{pollq.options.B}}</h2>
-				<h2>{{pollq.options.C}}</h2>
-				<h2>{{pollq.options.D}}</h2>
+		<ion-list>
+			<ion-item class="list card" ng-repeat="(index, pollq) in poll.questions">
+
+				<div class="item item-text-wrap">
+					<h2 class="title">{{index + 1}}. {{pollq.question}}</h2>
+				</div>
+				<canvas id="base" class="chart-horizontal-bar" chart-options="resAgg.options"
+				  chart-data="resAgg[pollq.qid].data" chart-labels="resAgg[pollq.qid].labels"
+					chart-colors="resAgg.colors">
+				</canvas>
 
 			</ion-item>
 		</ion-list>

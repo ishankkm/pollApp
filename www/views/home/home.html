@@ -1,28 +1,44 @@
 <ion-view title="Home">
-	<!-- <ion-nav-view name="home"></ion-nav-view> -->
-	<div class="bar bar-subheader item-input-inset bar-dark">
-		<div class="item-input-wrapper">
-			<i class="icon ion-search placeholder-icon"></i>
-			<input type="search" ng-model="query" placeholder="Search">
-		</div>
-		<div class="button-bar">
-			<button class="button button-icon ion-android-hand" ng-click="addPoll()"></button>
-			<button class="button button-icon ion-plus" ng-click="addNewPoll()"></button>
+	<button id="fab" class="button button-positive button-fab button-fab-bottom-right" ng-click="addNewPollpopup()">
+			<i class="icon ion-android-hand"></i>
+	</button>
+
+	<div class="bart">
+		<div class="has-header list list-inset">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="search" ng-model="query" placeholder="Filter Items">
+			</label>
+			<!-- <button class="button button-icon ion-plus" ng-click="addNewPoll()"></button> -->
 		</div>
 	</div>
-	<ion-content class="has-subheader">
+
+	<ion-content class="margin-top">
+
 		<ion-list>
-			<ion-item class="item" ng-repeat="poll in polls | filter: query" href="#/tab/polldetail/{{poll.pollid}}">
+			<ion-item class="list card border-left-card" ng-repeat="poll in polls | filter: query" ng-click="itemHandler(poll)" ng-hide="">
 
-				<h2 class="title">{{poll.title}}</h2>
-				<h2>{{poll.date}}</h2>
-				<h2>{{poll.qCount}}</h2>
+				<div class="item">
+					<h2 class="title">{{poll.title}}</h2>
+					<h5>Created by {{poll.ownername}} on {{poll.date | date:MMMM}}</h5>
+				</div>
 
-				<h4>{{poll.pollid}}</h4>
+				<div class="item item-body">
+					<p class="item-text-wrap">{{poll.descr}}</p>
+					<a class="subdued">{{poll.qCount}} questions</a>
+					<a class="subdued">Survey Code: {{poll.pollid}}</a>
+				</div>
+
+
+				<ion-option-button class="button-dark"
+          ng-click="deleteItem(poll)">
+          <i class="icon ion-trash-b"></i>
+        </ion-option-button>
+
 			</ion-item>
 		</ion-list>
 
-		<script id="addpoll.html" type="text/ng-template">
+		<!-- <script id="addpoll.html" type="text/ng-template">
 			<ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
           <h1 class="title">Add Poll</h1>
@@ -39,6 +55,6 @@
           </div>
         </ion-content>
       </ion-modal-view>
-		</script>
+		</script> -->
 	</ion-content>
 </ion-view>

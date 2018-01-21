@@ -1,42 +1,33 @@
 <ion-view title="Poll Room">
-	<ion-content class=" splash padding">
+	<ion-content class="">
 
-		<div class="list list-inset">
-
-			<div class="item item-input padding">
-				<label class="item-input-wrapper">
-					<input type="text" placeholder="Enter Poll id" ng-model="pollKey">
-				</label>
-				<button class="button button-small button-positive" ng-click="fetchPoll(pollKey)">
-					Submit
-				</button>
-			</div>
-
+		<div class="list card">
+		  <div class="item">
+		  	<h2 class="title">{{poll.title}}</h2>
+				<a class="subdued"><h5>Created by {{poll.ownername}} on {{poll.date | date:MMMM}}</h5></a>
+		  </div>
+		  <div class="item item-text-wrap">
+		    <p>{{poll.descr}}</p>
+		  </div>
 		</div>
 
-		<div class="list card padding" ng-show="isPollRoomActive && !polled">
 
-			<div class="list">
+		<ion-list>
+			<ion-item class="list card" ng-repeat="(index, pollq) in poll.questions">
 
-				<label class="item item-input">					
-					<label><h2>{{pollQues.pollid}}</h2></label>
-				</label>
-				<label class="item item-input">					
-					<h2>{{pollQues.question}}</h2>
-				</label>
-
-				<div class="item">
-					<ion-radio ng-model="pollAns" ng-value="'A'">A. {{pollQues.options.A}}</ion-radio>
-					<ion-radio ng-model="pollAns" ng-value="'B'">B. {{pollQues.options.B}}</ion-radio>
-					<ion-radio ng-model="pollAns" ng-value="'C'">C. {{pollQues.options.C}}</ion-radio>
-					<ion-radio ng-model="pollAns" ng-value="'D'">D. {{pollQues.options.D}}</ion-radio>
+				<div class="item item-text-wrap">
+					<h2 class="title">{{index + 1}}. {{pollq.question}}</h2>
 				</div>
-				<div class="item">
-					<a class="button button-block button-calm" ng-click="castVote(pollAns)" ng-disabled="!pollAns">Vote</a>
-				</div>
+				<ion-radio name="pollq-{{index}}" ng-model="pollq.selected" ng-value="'A'" ng-disabled="pollcomplete">A. {{pollq.options.A}}</ion-radio>
+				<ion-radio name="pollq-{{index}}" ng-model="pollq.selected" ng-value="'B'" ng-disabled="pollcomplete">B. {{pollq.options.B}}</ion-radio>
+				<ion-radio name="pollq-{{index}}" ng-model="pollq.selected" ng-value="'C'" ng-disabled="pollcomplete">C. {{pollq.options.C}}</ion-radio>
+				<ion-radio name="pollq-{{index}}" ng-model="pollq.selected" ng-value="'D'" ng-disabled="pollcomplete">D. {{pollq.options.D}}</ion-radio>
+			</ion-item>
 
+			<div class="item">
+				<a class="button button-block button-calm" ng-click="castVote()" ng-disabled="pollcomplete">Vote</a>
 			</div>
-		</div>
+		</ion-list>
 
 	</ion-content>
-</ion-view>	
+</ion-view>
