@@ -4,10 +4,26 @@ pollApp.controller('PollroomController', [
 	'$firebaseAuth', '$firebaseArray',
 	'$state',
 	'$ionicPopup',
-	function($scope, $http, $firebaseAuth, $firebaseArray, $state, $ionicPopup) {
+	'$ionicLoading',
+	'$timeout',
+	function($scope, $http, $firebaseAuth, $firebaseArray, $state, $ionicPopup, $ionicLoading, $timeout) {
 
 		var ref = firebase.database().ref();
 		var auth = $firebaseAuth();
+
+		$scope.showloading = function() {
+				$ionicLoading.show({
+						template: 'Loading...'
+				});
+
+				// For example's sake, hide the sheet after two seconds
+				$timeout(function() {
+						$ionicLoading.hide();
+				}, 5000);
+		};
+		$scope.hideloading = function(){
+			$ionicLoading.hide();
+		};
 
 		auth.$onAuthStateChanged(function(authUser) {
 
@@ -20,7 +36,7 @@ pollApp.controller('PollroomController', [
 				if (userpoll.completed == true){
 					console.log("Error");
 				}
-
+				$scope.showloading();
 				publicPoll.once("value",
 
 					function(snapshot) {
@@ -37,7 +53,9 @@ pollApp.controller('PollroomController', [
 					function(err){
 						console.log(err);
 					}
-				)
+				).then(function() {
+					$scope.hideloading();
+				})
 
 				$scope.castVote = function() {
 					var response = [];
@@ -60,7 +78,7 @@ pollApp.controller('PollroomController', [
 			   });
 
 			   alertPopup.then(function(res) {
-			     $state.go('tabs.polldetail', {pId: $state.params.pId});
+						 $state.go('tabs.home');
 			   });
 			 };
 

@@ -3,30 +3,39 @@
 	<ion-header-bar align-title="left" class="bar-dark">
 
 		<h1 class="title">The Survey App</h1>
-		<a class="button" href="#/register">Register</a>
+		<!-- <a class="button" href="#/register">Register</a> -->
 
 	</ion-header-bar>
 
-	<ion-content class="">
-
+	<ion-content>
 		<div class="list card">
 
-			<div class="item item-body">
-				<img src="img/lbg.png" class="full-image">
+			<form name="myform" ng-submit="login()" novalidate>
 
-				<label class="item item-input">
-					<span class="input-label">Username</span>
-					<input type="text" ng-model="user.email">
-				</label>
-				<label class="item item-input">
-					<span class="input-label">Password</span>
-					<input type="password" ng-model="user.password">
-				</label>
-				<button class="button button-full button-positive" ng-click="login()">
-					Sign in
-				</button>
-			</div>
+					<div class="item item-body">
+						<img src="img/lbg.png" class="full-image">
+
+						<label class="item item-input">
+							<span class="input-label">Username</span>
+							<input type="email" ng-model="user.email" ng-required="true" placeholder="enter a valid email">
+							<p class="error validationerror"
+				      	ng-show="myform.email.$invalid && myform.email.$touched">
+				      Must be a valid email</p>
+						</label>
+						<label class="item item-input">
+							<span class="input-label">Password</span>
+							<input type="password" ng-model="user.password" ng-required="true" placeholder="at least 6 characters">
+						</label>
+						<button type="submit" class="button button-full button-positive" ng-disabled="myform.$invalid">
+							Sign in
+						</button>
+						<a class="button button-clear button-positive" href="#/register">
+						  New user? Register
+						</a>
+					</div>
+
+			</form>
+
 		</div>
-
 	</ion-content>
 </ion-view>

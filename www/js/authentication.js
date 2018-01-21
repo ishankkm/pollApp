@@ -1,6 +1,6 @@
 pollApp.factory('Authentication',
-  ['$rootScope','$state', '$location', '$firebaseObject', '$firebaseAuth',
-  function($rootScope, $state, $location, $firebaseObject, $firebaseAuth) {
+  ['$rootScope','$state', '$location', '$firebaseObject', '$firebaseAuth', '$ionicPopup',
+  function($rootScope, $state, $location, $firebaseObject, $firebaseAuth, $ionicPopup) {
 
   var ref = firebase.database().ref();
   var auth = $firebaseAuth();
@@ -26,6 +26,10 @@ pollApp.factory('Authentication',
         $state.go('tabs.home');
       }).catch(function(error) {
         $rootScope.message = error.message;
+        $ionicPopup.alert({
+          title: 'Invalid Login!',
+          template: 'Incorrect username/ password'
+        });
       }); //signInWithEmailAndPassword
     }, //login
 
@@ -56,6 +60,10 @@ pollApp.factory('Authentication',
         $location.path('/');
       }).catch(function(error) {
         $rootScope.message = error.message;
+        $ionicPopup.alert({
+          title: 'Oops!',
+          template: 'Something went wrong'
+        });
       }); //createUserWithEmailAndPassword
     } //register
 

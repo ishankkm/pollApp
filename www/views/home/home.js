@@ -5,18 +5,35 @@ pollApp.controller('HomeController', [
 	'$state',
 	'$ionicModal',
 	'$ionicPopup',
-	function($scope, $http, $firebaseAuth, $firebaseArray, $state, $ionicModal, $ionicPopup	) {
+	'$ionicLoading',
+	'$timeout',
+	function($scope, $http, $firebaseAuth, $firebaseArray, $state, $ionicModal, $ionicPopup, $ionicLoading, $timeout) {
 
 		var ref = firebase.database().ref();
 		var auth = $firebaseAuth();
 
+		$scope.showloading = function() {
+				$ionicLoading.show({
+						template: 'Loading...'
+				});
+
+				// For example's sake, hide the sheet after two seconds
+				$timeout(function() {
+						$ionicLoading.hide();
+				}, 2000);
+		};
+		$scope.hideloading = function(){
+			$ionicLoading.hide();
+		};
+
 		auth.$onAuthStateChanged(function(authUser) {
 
 			if(authUser) {
-
+				$scope.showloading();
 				var userPollRef = ref.child('users').child(authUser.uid).child('polls');
-				var userPollingInfo = $firebaseArray(userPollRef);
+				var userPollingInfo = $firebaseArray(userPollRef)
 				$scope.polls = userPollingInfo;
+
 				$scope.newpoll = {}
 				$scope.addNewPoll = function() {
 					$state.go('tabs.newpoll');
@@ -30,21 +47,6 @@ pollApp.controller('HomeController', [
 						$state.go('tabs.polldetail', {pId: poll.pollid});
 					}
 				}
-
-				// $scope.addPoll = function() {
-				// 	$ionicModal.fromTemplateUrl('addpoll.html', {
-				// 		scope: $scope
-				// 	}).then(function(modal) {
-				// 		$scope.addpollmodal = modal;
-				// 		$scope.addpollmodal.show();
-				// 	});
-        //
-				// }
-
-				//Cleanup the modal when we're done with it!
-				// $scope.$on('$destroy', function() {
-				// 		$scope.addpollmodal.remove();
-				// });
 
 				$scope.fetchPoll = function(newPollid) {
 
@@ -146,6 +148,7 @@ pollApp.controller('HomeController', [
 					 		}
 					 });
 			 }
+			 $scope.hideloading();
 			} //authUser
 	  }); //onAuthStateChanged
 	}

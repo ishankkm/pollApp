@@ -3,37 +3,51 @@
 	<ion-header-bar align-title="left" class="bar-dark">
 
 		<h1 class="title">The Survey App</h1>
-		<a class="button" href="#/login">Login</a>
+		<!-- <a class="button" href="#/login">Login</a> -->
 
 	</ion-header-bar>
 
-	<ion-content class=" ">
-
+	<ion-content>
 		<div class="list card ">
 
-			<div class="item item-body">
-				<img src="img/lbg.png" class="full-image">
-				<label class="item item-input">
-					<span class="input-label">First Name</span>
-					<input type="text" ng-model="user.firstname">
-				</label>
-				<label class="item item-input">
-					<span class="input-label">Last Name</span>
-					<input type="text" ng-model="user.lastname">
-				</label>
-				<label class="item item-input">
-					<span class="input-label">Username</span>
-					<input type="text" ng-model="user.email">
-				</label>
-				<label class="item item-input">
-					<span class="input-label">Password</span>
-					<input type="password" ng-model="user.password">
-				</label>
-				<button class="button button-full button-positive" ng-click="register()">
-					Register
-				</button>
-			</div>
-		</div>
+				<form name="myform" ng-submit="register()" novalidate>
+						<div class="item item-body">
 
+							<img src="img/lbg.png" class="full-image">
+
+							<label class="item item-input">
+								<span class="input-label">First Name</span>
+								<input type="text" ng-model="user.firstname" ng-required="true">
+							</label>
+
+							<label class="item item-input">
+								<span class="input-label">Last Name</span>
+								<input type="text" ng-model="user.lastname" ng-required="true">
+							</label>
+
+							<label class="item item-input">
+								<span class="input-label">Email</span>
+								<input type="email" ng-model="user.email" ng-required="true">
+							</label>
+
+							<label class="item item-input">
+								<span class="input-label">Password</span>
+								<input type="password" ng-model="user.password" ng-required="true">
+							</label>
+
+							<button type="submit" class="button button-full button-positive"
+										ng-click="register()" ng-disabled="myform.$invalid" >
+								Register
+							</button>
+
+							<a class="button button-clear button-positive" href="#/login">
+							  Already registered? Login
+							</a>
+
+						</div>
+				</form>
+
+		</div>
 	</ion-content>
+
 </ion-view>

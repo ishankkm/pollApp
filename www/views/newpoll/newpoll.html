@@ -1,6 +1,6 @@
 <ion-view title="Create New Poll">
 
-	<ion-content class="">
+	<ion-content	>
 
 		<div class="list card">
 		  <label class="item item-input item-stacked-label">
@@ -20,7 +20,7 @@
 
 		<ion-list>
 			<ion-item class="card margin-top-small" ng-repeat="(index, poll) in publicPollList.questions"
-				ng-click="showmodal(index, poll)">
+				ng-click="showmodal(index, poll)" ng-disabled="isPollActive">
 
 				  <div class="item item-text-wrap">
 				    <h2>{{poll.question}}</h2>

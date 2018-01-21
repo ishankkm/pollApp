@@ -3,17 +3,34 @@ pollApp.controller('PolldetailController', [
 	'$http',
 	'$firebaseAuth', '$firebaseObject',
 	'$state',
-	function($scope, $http, $firebaseAuth, $firebaseObject, $state) {
+	'$ionicLoading',
+	'$timeout',
+	function($scope, $http, $firebaseAuth, $firebaseObject, $state, $ionicLoading, $timeout) {
 
 		var ref = firebase.database().ref();
 		var auth = $firebaseAuth();
 
 		var publicPolls = ref.child('polls').child($state.params.pId);
 
+		$scope.showloading = function() {
+				$ionicLoading.show({
+						template: 'Loading...'
+				});
+
+				// For example's sake, hide the sheet after two seconds
+				$timeout(function() {
+						$ionicLoading.hide();
+				}, 5000);
+		};
+		$scope.hideloading = function(){
+			$ionicLoading.hide()
+		};
+
 		auth.$onAuthStateChanged(function(authUser) {
 
 			if(authUser) {
 
+				$scope.showloading();
 				publicPolls.once("value",
 					function(snapshot) {
 						if (snapshot.val() != null) {
@@ -27,7 +44,9 @@ pollApp.controller('PolldetailController', [
 					function(err){
 						console.log(err);
 					}
-				) // publicPolls.once
+				).then(function() {
+					$scope.hideloading();
+				});
   		} //authUser
 		}); //onAuthStateChanged
 	} // function

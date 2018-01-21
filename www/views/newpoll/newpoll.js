@@ -126,6 +126,7 @@ pollApp.controller('NewpollController', [
 			   });
 
 			   alertPopup.then(function(res) {
+					 $state.go('tabs.home');
 			     console.log('Thank you for not eating my delicious ice cream cone');
 			   });
 			 };

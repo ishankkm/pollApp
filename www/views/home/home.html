@@ -18,7 +18,8 @@
 		<ion-list>
 			<ion-item class="list card border-left-card" ng-repeat="poll in polls | filter: query" ng-click="itemHandler(poll)" ng-hide="">
 
-				<div class="item">
+				<div class="item item-avatar">
+					<img src="img/logo.png">
 					<h2 class="title">{{poll.title}}</h2>
 					<h5>Created by {{poll.ownername}} on {{poll.date | date:MMMM}}</h5>
 				</div>
@@ -29,32 +30,33 @@
 					<a class="subdued">Survey Code: {{poll.pollid}}</a>
 				</div>
 
-
 				<ion-option-button class="button-dark"
           ng-click="deleteItem(poll)">
           <i class="icon ion-trash-b"></i>
         </ion-option-button>
 
 			</ion-item>
-		</ion-list>
 
-		<!-- <script id="addpoll.html" type="text/ng-template">
-			<ion-modal-view>
-        <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">Add Poll</h1>
-          <button class="button button-clear button-primary" ng-click="addpollmodal.remove()">Cancel</button>
-        </ion-header-bar>
-        <ion-content class="padding">
-          <div class="list">
-						<label class="item item-input">
-							<input type="text" placeholder="Enter Poll id" ng-model="newPollid">
-						</label>
-						<button class="button button-full button-positive" ng-click="fetchPoll(newPollid)">
-							Submit
-						</button>
-          </div>
-        </ion-content>
-      </ion-modal-view>
-		</script> -->
+			<ion-item class="list card border-left-card" ng-hide="polls[0]">
+
+				<div class="item item-avatar">
+					<img src="img/logo.png">
+					<h2 class="title">Welcome!</h2>
+					<h5>The Survey App lets you create and participate in surveys.</h5>
+				</div>
+
+				<div class="item item-body">
+					<p class="item-text-wrap">
+						<ul>
+							<li>Create a new survey <a href="#/tab/newpoll">here</a></li>
+							<li>To Participate in a survey click on the blue icon at the bottom.</li>
+							<li>Check out the source code <a target="_blank" href="https://github.com/ishankkm/pollApp">here</a></li>
+						</ul>
+					</p>
+					<a class="subdued">Enjoy!</a>
+				</div>
+
+			</ion-item>
+		</ion-list>
 	</ion-content>
 </ion-view>
