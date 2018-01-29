@@ -8,7 +8,7 @@ pollApp.controller('RegisterController', [
     $scope.register = function() {
 
       $scope.user.displayName = $scope.user.firstname + " " + $scope.user.lastname;
-      console.log($scope.user);
+      // console.log($scope.user);
       Authentication.register($scope.user);
     }
   }
